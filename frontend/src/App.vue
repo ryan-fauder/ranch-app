@@ -2,17 +2,20 @@
   <div class="app">
     <NavBar @changeContent="setContent"/>
     <main id="main-container">
+      <PeopleContent />
     </main>
   </div>
 </template>
 
 <script>
 import NavBar from './components/Navbar.vue'
+import PeopleContent from './components/People/PeopleContent.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    PeopleContent
   },
   methods: {
     setContent(newContent){
