@@ -19,7 +19,7 @@ class Animal extends Model {
     });
     this.belongsToMany(models.Lote, {
       foreignKey: "fk_id_lote",
-      through: "Animais_Lotes",
+      through: "AnimaisLotes",
       as: "lotes",
     });
   }

@@ -44,7 +44,7 @@ module.exports = {
       },
       ic_bezerro: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.BOOLEAN,
       },
       created_at: {
         allowNull: false,

@@ -4,7 +4,7 @@ const { UniqueConstraintError, EmptyResultError, ForeignKeyConstraintError} = re
 module.exports = {
 	async index(req, res){
 		try{
- 			const animal = await Animal.findAll({include: {association: "pessoa", attributes: ["name"]}});
+ 			const animal = await Animal.findAll({include: [{association: "pessoa", attributes: ["name"]}]});
  			return res.send(animal)
 		} 
 		catch(err){
@@ -48,10 +48,17 @@ module.exports = {
 
 	 		const animal = await Animal.findByPk(animalId);
 	 		if(animal == null) throw new EmptyResultError();
+
+	 		const person = await Person.findByPk(fk_id_pessoa);
+	 		if(person == null) throw new ForeignKeyConstraintError();
+
 	 		const animalUpdated = await Animal.update(animalNew);
 	 		return res.send(animalUpdated);
  		}
  		catch(err){
+ 			if (err instanceof ForeignKeyConstraintError){
+ 				return res.status(404).send({error: "Error on updating animal: Foreign Key ID pessoa not found"})
+ 			}
  			if(err instanceof EmptyResultError){
 				return res.status(404).send({error: "Error on updating animal: ID not found"});
  			}

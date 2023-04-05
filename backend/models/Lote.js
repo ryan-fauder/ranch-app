@@ -12,7 +12,7 @@ class Lote extends Model {
   static associate(models) {
     this.belongsToMany(models.Animal, {   
       foreignKey: "fk_id_animal",
-      through: "Animais_Lotes",
+      through: "AnimaisLotes",
       as: "animais",
     });
   }
