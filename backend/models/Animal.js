@@ -9,7 +9,7 @@ class Animal extends Model {
         raca: DataTypes.STRING,
         sexo: DataTypes.CHAR,
         dt_nascimento: DataTypes.DATE
-      }, {sequelize, modelName: 'Animal'}
+      }, {sequelize, modelName: 'Animal', tableName: "animal"}
     )
   }
   static associate(models) {

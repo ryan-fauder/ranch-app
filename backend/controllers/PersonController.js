@@ -3,7 +3,6 @@ const { UniqueConstraintError, EmptyResultError, } = require('sequelize');
 module.exports = {
 	async index(req, res){
 		try{
-			const {name, email, gender, address} = req.body;
  			const person = await Person.findAll();
  			return res.send(person)
 		} 
@@ -13,8 +12,8 @@ module.exports = {
  	},
 	async store(req, res){
 		try{
-			const {name, email, gender, address} = req.body;
- 			const person = await Person.create({name, email, gender, address})
+			const personNew = req.body;
+ 			const person = await Person.create(personNew)
  			return res.status(201).send(person);
  		}
 		catch(err){
