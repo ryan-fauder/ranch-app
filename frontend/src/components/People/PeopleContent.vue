@@ -70,7 +70,7 @@
       return {
         showModal: false,
         mode: 'create',
-        selectedPerson: { id: -1, email: '', name: '', address: '', gender: '' },
+        selectedPerson: { id: -1, email: '', name: '', address: '', gender: '', active: '' },
         table: {
           fields: [
               'index',
@@ -78,7 +78,7 @@
               { key: 'email', label: 'E-mail', sortable: false },
               { key: 'address', label: 'Endereço', sortable: false },
               { key: 'gender', label: 'Sexo', sortable: false },
-              { key: 'actived', label: 'Ativo', sortable: false },
+              { key: 'active', label: 'Ativo', sortable: false },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
           items: [

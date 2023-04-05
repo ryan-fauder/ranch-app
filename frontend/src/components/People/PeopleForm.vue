@@ -38,9 +38,15 @@
       </b-form-group>
 
       <b-form-group id="input-group-4" label="Sexo">
-        <b-form-radio-group id="radio-group-2" name="radio-group-1" :disabled="disabled">
+        <b-form-radio-group id="radio-group" name="radio-group-1" :disabled="disabled">
           <b-form-radio v-model="form.gender" value="M">Masculino</b-form-radio>
           <b-form-radio v-model="form.gender" value="F">Feminino</b-form-radio>
+        </b-form-radio-group>
+      </b-form-group>
+      <b-form-group id="input-group-4" label="Ativo">
+        <b-form-radio-group id="radio-group-2" name="radio-group-2" :disabled="disabled">
+          <b-form-radio v-model="form.active" value="true">Ativo</b-form-radio>
+          <b-form-radio v-model="form.active" value="false">Inativo</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
 
@@ -54,14 +60,14 @@
   export default {
     data() {
       return {
-        form: { id: -1, email: '', name: '', address: '', gender: '' },
+        form: { id: -1, email: '', name: '', address: '', gender: '', active: '' },
       }
     },
     props: {
       person: {
         type: Object,
         default(){
-          return { id: -1, email: '', name: '', address: '', gender: '' }
+          return { id: -1, email: '', name: '', address: '', gender: '', active: '' }
         }
       },
       disabled:{ type: Boolean },
