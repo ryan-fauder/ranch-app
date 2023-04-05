@@ -6,7 +6,7 @@ class Lote extends Model {
     super.init({
         nome: DataTypes.STRING,
         descricao: DataTypes.STRING,
-      }, {sequelize, modelName: 'Lote'}
+      }, {sequelize, modelName: 'Lote', tableName: "lote"}
     )
   }
   static associate(models) {
