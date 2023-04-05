@@ -7,13 +7,17 @@ class Person extends Model {
         name: DataTypes.STRING,
         email: DataTypes.STRING,
         gender: DataTypes.CHAR,
-        address: DataTypes.TEXT
+        address: DataTypes.TEXT,
+        active: DataTypes.BOOLEAN
       }, {sequelize, modelName: 'Person'}
     )
 
   }
   static associate(models) {
-    // define association here
+    this.hasMany(models.Animal, {
+      foreignKey: "fk_id_pessoa",
+      as: "animais"
+    });
   }
 }
 
