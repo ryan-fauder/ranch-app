@@ -32,25 +32,25 @@
 <script>
   import AnimaisLotesForm from './AnimaisLotesForm.vue'
   import TableComponent from '../TableComponent.vue'
-  import handlePerson from '../../api/person';
+  import handleAnimaisLotes from '../../api/animaislotes';
 
   const form_types = {
     create: {
-      title: "Adicionar pessoa",
+      title: "Adicionar relação",
       buttons: {
         reset: { variant: "danger", text: "Limpar" },
         submit: { variant: "primary", text: "Adicionar" }
       }
     },
     update: {
-      title: "Editar pessoa",
+      title: "Editar relação",
       buttons: {
         reset: { id: "reset-button", type_btn: "reset", variant: "danger", text: "Limpar" },
         submit: { id: "submit-button", type_btn: "submit", variant: "primary", text: "Atualizar" }
       }
     },
     delete: {
-      title: "Remover pessoa",     
+      title: "Remover relação",     
       buttons: {
         reset:  { id: "cancel-button", type_btn: "reset", variant: "secondary", text: "Cancelar" },
         submit: { id: "submit-button", type_btn: "submit", variant: "danger", text: "Remover" }
@@ -60,7 +60,7 @@
 
 
   export default {
-    name: 'AnimaisLotesContent',
+    name: 'PeopleContent',
     components: {
       AnimaisLotesForm,
       TableComponent
@@ -74,17 +74,18 @@
         table: {
           fields: [
               'index',
-              { key: 'name', label: 'Nome', sortable: true },
-              { key: 'email', label: 'E-mail', sortable: false },
-              { key: 'address', label: 'Endereço', sortable: false },
-              { key: 'gender', label: 'Sexo', sortable: false },
-              { key: 'active', label: 'Ativo', sortable: false },
+              { key: 'fk_id_animal', label: 'ID Animal', sortable: true },
+              { key: 'animal', label: 'Nome (Animal)', sortable: false, formatter: (value) => value?.nome },
+              { key: 'fk_id_lote', label: 'ID lote', sortable: false },
+              { key: "lote", label: 'Nome (Lote)', sortable: false, formatter: (value) => value?.nome },
+              { key: 'dt_entrada', label: 'Data de Entrada', sortable: false },
+              { key: 'dt_saida', label: 'Data de Saída', sortable: false },
+              { key: 'dt_ultima_movimentacao', label: 'Data de Ultima Movimentação', sortable: false },
+              { key: 'ic_bezerro', label: 'IC Bezerro', sortable: false },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
           items: [
-              { isActive: true, name: "Jorge", email: 'jorge.mc@gmail.com', address: 'Rua BH', gender: 'M', actived: true },
-              { isActive: false, name: "Andressa", email: 'andressa.mc@gmail.com', address: 'Rua SP', gender: 'F', actived: true },
-              { isActive: false, name: "Augusto", email: 'guto.feliz@gmail.com', address: 'Rua RJ', gender: 'M', actived: false },
+              { id: -1 , fk_id_animal: -1, fk_id_lote: -1, dt_entrada: "06/04/2022", dt_saida: "10/04/2023", dt_ultima_movimentacao: "10/04/2023", ic_bezerro: "true" },
             ]
         }
       }
@@ -110,7 +111,7 @@
         }
         alert("Enviado com sucesso");
 
-        const items = await handlePerson.index();  
+        const items = await handleAnimaisLotes.index();  
         if(items instanceof Error) return;
         this.table.items = items;
       },
@@ -131,14 +132,14 @@
         return form_types[this.mode].title;
       },
       submitFunction(){
-        return handlePerson[this.mode];
+        return handleAnimaisLotes[this.mode];
       },
       controlButtons(){
         return form_types[this.mode].buttons
       }
     },
     async beforeMount() {
-      const items = await handlePerson.index();  
+      const items = await handleAnimaisLotes.index();  
       if(items instanceof Error) return;
       this.table.items = items;
     },
@@ -147,7 +148,7 @@
 
 <style scoped>
   #content{
-    min-width: 50%;
+    min-width: 60%;
   }
   #table-header {
     margin: 2rem 0 0.5rem 0;

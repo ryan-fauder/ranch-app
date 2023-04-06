@@ -17,7 +17,6 @@ module.exports = {
  			return res.status(201).send(person);
  		}
 		catch(err){
-			console.log(err)
 			if(err instanceof UniqueConstraintError){
 				return res.status(409).send({error: "Error on creating person: E-mail already in use"});
 			}

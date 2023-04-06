@@ -60,7 +60,7 @@
 
 
   export default {
-    name: 'PeopleContent',
+    name: 'AnimalContent',
     components: {
       AnimalForm,
       TableComponent
@@ -69,18 +69,18 @@
       return {
         showModal: false,
         mode: 'create',
-        selectedAnimal: { id_fazenda: 1, nome: "", raca: "", sexo: "", dt_nascimento: "" },
-        createAnimal: { id_fazenda: 1, nome: "", raca: "", sexo: "", dt_nascimento: ""  },
+        selectedAnimal: { id_fazenda: "", nome: "", raca: "", sexo: "", dt_nascimento: "" },
+        createAnimal: { id_fazenda: "", nome: "", raca: "", sexo: "", dt_nascimento: ""  },
         table: {
           fields: [
               'index',
-              { key: 'id_fazenda', label: 'ID Fazenda'},
-              { key: 'nome', label: 'Nome'},
-              { key: 'raca', label: 'Raça'},
-              { key: 'sexo', label: 'Sexo' },
-              { key: 'dt_nascimento', label: 'Data de Nascimento'},
-              { key: 'pessoa.name', label: 'Proprietário'},
-              { key: 'actions', label: 'Ações'},
+              { key: 'id_fazenda', label: 'ID Fazenda', sortable: true },
+              { key: 'nome', label: 'Nome', sortable: false },
+              { key: 'raca', label: 'Raça', sortable: false },
+              { key: 'sexo', label: 'Sexo', sortable: false },
+              { key: 'dt_nascimento', label: 'Data de Nascimento', sortable: false },
+              { key: 'pessoa', label: 'Proprietário', sortable: false, formatter: (value) => value?.name  },
+              { key: 'actions', label: 'Ações', sortable: false },
             ],
           items: [
               { id_fazenda: 1, nome: "Magnata", raca: "Bezerro", sexo: "M", dt_nascimento: "04/10/2010" }
@@ -101,8 +101,8 @@
         this.setMode(mode);
       },
       async onSubmit(form){
-        console.log(form);
         const response = await this.submitFunction(form);
+        console.log(response);
 
         if(response instanceof Error || response.error){
           alert("Não foi possível realizar essa operação");
@@ -138,7 +138,7 @@
       }
     },
     async beforeMount() {
-      const items = await handleAnimal.index();  
+      const items = await handleAnimal.index();
       if(items instanceof Error) return;
       this.table.items = items;
     },

@@ -20,6 +20,7 @@
           :disabled="disabled"
         ></b-form-input>
       </b-form-group>
+
       <b-form-group id="input-group-2" label="Raça:" label-for="input-2">
         <b-form-input
           id="input-2"
@@ -34,8 +35,16 @@
         <VueDatePicker v-model="form.dt_nascimento" auto-apply :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" format="dd/MM/yyyy"/>
       </b-form-group>
 
+      <b-form-group id="input-group-5" label="Proprietário">
+        <b-form-select 
+          v-model="form.fk_id_pessoa" :options="options" 
+          value-field="id" text-field="name, id" 
+          id="radio-group"
+        ></b-form-select>
+      </b-form-group>
+
       <b-form-group id="input-group-4" label="Sexo">
-        <b-form-radio-group id="radio-group" nome="radio-group-1" :disabled="disabled">
+        <b-form-radio-group id="radio-group" :disabled="disabled">
           <b-form-radio v-model="form.sexo" value="M">Masculino</b-form-radio>
           <b-form-radio v-model="form.sexo" value="F">Feminino</b-form-radio>
         </b-form-radio-group>
@@ -48,11 +57,12 @@
 </template>
 <script>
 
+  import handlePerson from '../../api/person';
   export default {
     data() {
       return {
-        dateValue: '',
-        form: { id: -1, id_fazenda: '', nome: '', raca: '', dt_nascimento: '', sexo: '', date: '' },
+        form: { id: -1, id_fazenda: '', nome: '', raca: '', dt_nascimento: '', sexo: '', fk_id_pessoa: 0 },
+        options: [],
       }
     },
     props: {
@@ -66,7 +76,7 @@
         },
         deep: true,
         immediate: true,
-      }
+      },
     },
     emits: ["submit", "reset"],
     methods: {
@@ -78,6 +88,11 @@
         event.preventDefault()
         this.$emit('reset', this.form);
       }
+    },
+    async beforeMount(){
+      const items = await handlePerson.index();
+      if(items instanceof Error) return;
+      this.options = items;
     }
   }
 </script>

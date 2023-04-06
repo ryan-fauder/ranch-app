@@ -21,7 +21,6 @@ module.exports = {
  			return res.status(201).send(animal);
  		}
 		catch(err){
-			console.log(err);
 			if (err instanceof ForeignKeyConstraintError){
 				return res.status(404).send({error: "Error on indexing animal: Foreign Key ID pessoa not found"})
 			}
@@ -46,17 +45,18 @@ module.exports = {
  		try{
  			const animalNew = req.body;
 	 		const animalId = req.params.id;
-
 	 		const animal = await Animal.findByPk(animalId);
 	 		if(animal == null) throw new EmptyResultError();
 
+	 		const { fk_id_pessoa } = animalNew;
+	 		 
 	 		const person = await Person.findByPk(fk_id_pessoa);
 	 		if(person == null) throw new ForeignKeyConstraintError();
-
 	 		const animalUpdated = await animal.update(animalNew);
 	 		return res.send(animalUpdated);
  		}
  		catch(err){
+ 			console.log(err);
  			if (err instanceof ForeignKeyConstraintError){
  				return res.status(404).send({error: "Error on updating animal: Foreign Key ID pessoa not found"})
  			}

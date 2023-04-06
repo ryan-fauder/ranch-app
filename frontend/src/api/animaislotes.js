@@ -1,6 +1,6 @@
 import { BASE_URL } from "./config.js";
 
-const handlePerson = {
+const handleAnimaisLotes = {
     create: async(animaisLotes) => {
         return await fetch(`${BASE_URL}/animaisLotes/create`, {
             method: "POST",
@@ -39,4 +39,4 @@ const handlePerson = {
     }
 }
 
-export default handlePerson;
+export default handleAnimaisLotes;

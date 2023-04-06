@@ -1,8 +1,9 @@
 import { BASE_URL } from "./config.js";
 
-const handlePerson = {
-    create: async(animal, id_person) => {
-        return await fetch(`${BASE_URL}/animal/create/${id_person}`, {
+const handleAnimal = {
+    create: async(animal) => {
+        const { fk_id_pessoa } = animal;
+        return await fetch(`${BASE_URL}/animal/create/${fk_id_pessoa}`, {
             method: "POST",
             headers: {"Content-type": "application/json; charset=UTF-8"},
             body: JSON.stringify(animal),
@@ -11,11 +12,12 @@ const handlePerson = {
           .catch(err => err);
     },
     update: async(animal) => {
-        const { id } = animal;
+        const { id, pessoa, ...data } = animal;
+        console.log(data, pessoa);
         return await fetch(`${BASE_URL}/animal/${id}`, {
             method: "PUT",
             headers: {"Content-type": "application/json; charset=UTF-8"},
-            body: JSON.stringify(animal),
+            body: JSON.stringify(data),
           })
           .then(response => response.json())
           .catch(err => err);
@@ -39,4 +41,4 @@ const handlePerson = {
     }
 }
 
-export default handlePerson;
+export default handleAnimal;

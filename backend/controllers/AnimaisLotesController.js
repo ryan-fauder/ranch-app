@@ -6,6 +6,7 @@ module.exports = {
 	async index(req, res){
 		try{
  			const animais_lotes = await AnimaisLotes.findAll({
+ 				attributes: { include: ['id'], exclude: ['createdAt', 'updatedAt'] },
  				include: [
  					{association: "animal", attributes: ["id","nome"]}, 
  					{association: "lote", attributes: ["id","nome"]}
@@ -14,7 +15,6 @@ module.exports = {
  			return res.send(animais_lotes)
 		} 
 		catch(err){
-			console.log(err);
 			return res.status(400).send({error: "Error on indexing animais_lotes"})
 		}
  	},
@@ -32,7 +32,6 @@ module.exports = {
  			return res.status(201).send(animais_lotes);
  		}
 		catch(err){
-			console.log(err);
 			if (err instanceof ForeignKeyConstraintError){
 				if(err.fields[0] == "fk_id_lote")
 					return res.status(404).send({error: "Error on indexing animais_lotes: Foreign Key ID lote not found"})
@@ -45,7 +44,7 @@ module.exports = {
  	async show(req, res){
  		try{
 	 		const animais_lotesId = req.params.id;
-	 		const animais_lotes = await AnimaisLotes.findByPk(animais_lotesId);
+	 		const animais_lotes = await AnimaisLotes.findOne({ where: { id: animais_lotesId }});
 	 		if(animais_lotes == null) throw new EmptyResultError();
 	 		return res.send(animais_lotes);
  		}
@@ -62,7 +61,7 @@ module.exports = {
 	 		const animais_lotesId = req.params.id;
 	 		const {fk_id_animal, fk_id_lote} = animais_lotesNew;
 
-	 		const animais_lotes = await AnimaisLotes.findByPk(animais_lotesId);
+	 		const animais_lotes = await AnimaisLotes.findOne({ where: { id: animais_lotesId }});
 	 		if(animais_lotes == null) throw new EmptyResultError();
 
 	 		const animal = await Animal.findByPk(fk_id_animal);
@@ -71,7 +70,7 @@ module.exports = {
 			const lote = await Lote.findByPk(fk_id_lote);
 			if(lote == null) throw new ForeignKeyConstraintError({fields: ["fk_id_lote"]});
 
-	 		const animais_lotesUpdated = await AnimaisLotes.update(animais_lotesNew);
+	 		const animais_lotesUpdated = await animais_lotes.update(animais_lotesNew);
 	 		return res.send(animais_lotesUpdated);
  		}
  		catch(err){
@@ -90,9 +89,9 @@ module.exports = {
  	async delete(req, res){
  		try{
 	 		const animais_lotesId = req.params.id;
-	 		const animais_lotes = await AnimaisLotes.findByPk(animais_lotesId);
+	 		const animais_lotes = await AnimaisLotes.findOne({ where: { id: animais_lotesId }});
 	 		if(animais_lotes == null) throw new EmptyResultError();
-	 		const animais_lotesDeleted = await AnimaisLotes.destroy();
+	 		const animais_lotesDeleted = await animais_lotes.destroy();
 	 		return res.send(animais_lotesDeleted);
  		}
  		catch(err){
