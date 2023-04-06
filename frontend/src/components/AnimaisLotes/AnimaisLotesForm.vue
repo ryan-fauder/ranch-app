@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form id="people-form" @submit="onSubmit" @reset="onReset">
+    <b-form id="relacoes-form" @submit="onSubmit" @reset="onReset">
       <b-form-group id="input-group-2" label="Nome:" label-for="input-2">
         <b-form-input
           id="input-2"
@@ -64,18 +64,13 @@
       }
     },
     props: {
-      person: {
-        type: Object,
-        default(){
-          return { id: -1, email: '', name: '', address: '', gender: '', active: '' }
-        }
-      },
+      data: { type: Object },
       disabled:{ type: Boolean },
     },
     watch: { 
-      person: {
+      data: {
         handler() {
-          this.form = this.person;
+          this.form = this.data;
         },
         deep: true,
         immediate: true,

@@ -64,18 +64,13 @@
       }
     },
     props: {
-      person: {
-        type: Object,
-        default(){
-          return { id: -1, email: '', name: '', address: '', gender: '', active: '' }
-        }
-      },
+      data: { type: Object },
       disabled:{ type: Boolean },
     },
     watch: { 
-      person: {
+      data: {
         handler() {
-          this.form = this.person;
+          this.form = this.data;
         },
         deep: true,
         immediate: true,

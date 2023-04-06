@@ -1,57 +1,56 @@
 <template>
 
-  <div class="content">
+  <div id="content">
     <div>
-      <b-row cols="3" align-h="end">
+      <b-row id="table-header" cols="3" align-h="end">
         <b-col>
-          <h3>Registros</h3>
+          <h4>Registros - Lotes</h4>
         </b-col>
         <b-col align-self="end">
           <b-button
           aria-controls="collapse-4"
-          @click="[toggleModal(), setMode('create')]" variant="primary">Adicionar Pessoa</b-button>
+          @click="[toggleModal(), setMode('create')]" variant="primary">Adicionar lote</b-button>
         </b-col>
       </b-row>
 
-      <TableComponent @rowSelection="onPersonSelection" :fields="table.fields" :items="table.items" />
+      <TableComponent @rowSelection="onLoteSelection" :fields="table.fields" :items="table.items" />
     </div>
   </div>
 
   <b-modal v-model="showModal" :title="form_title" hide-footer>
     <div class="d-block text-left">
-      <PeopleForm @submit="onSubmit" @reset="onReset" :person="selectedPerson" :disabled="mode == 'delete'">
-
+      <LoteForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createLote : selectedLote" :disabled="mode == 'delete'">
       <b-form-group id="control-form">
         <b-button type="reset" :variant="controlButtons.reset.variant"> {{controlButtons.reset.text}}</b-button>
         <b-button type="submit" :variant="controlButtons.submit.variant"> {{controlButtons.submit.text}}</b-button>
       </b-form-group>
-    </PeopleForm>
+    </LoteForm>
     </div>
   </b-modal>
 </template>
 
 <script>
-  import PeopleForm from './PeopleForm.vue'
+  import LoteForm from './LoteForm.vue'
   import TableComponent from '../TableComponent.vue'
-  import handlePerson from '../../api/person';
+  import handleLote from '../../api/lote';
 
   const form_types = {
     create: {
-      title: "Adicionar pessoa",
+      title: "Adicionar lote",
       buttons: {
         reset: { variant: "danger", text: "Limpar" },
         submit: { variant: "primary", text: "Adicionar" }
       }
     },
     update: {
-      title: "Editar pessoa",
+      title: "Editar lote",
       buttons: {
         reset: { id: "reset-button", type_btn: "reset", variant: "danger", text: "Limpar" },
         submit: { id: "submit-button", type_btn: "submit", variant: "primary", text: "Atualizar" }
       }
     },
     delete: {
-      title: "Remover pessoa",     
+      title: "Remover lote",     
       buttons: {
         reset:  { id: "cancel-button", type_btn: "reset", variant: "secondary", text: "Cancelar" },
         submit: { id: "submit-button", type_btn: "submit", variant: "danger", text: "Remover" }
@@ -61,30 +60,26 @@
 
 
   export default {
-    name: 'PeopleContent',
+    name: 'LoteContent',
     components: {
-      PeopleForm,
+      LoteForm,
       TableComponent
     },
     data: () => {
       return {
         showModal: false,
         mode: 'create',
-        selectedPerson: { id: -1, email: '', name: '', address: '', gender: '', active: '' },
+        selectedLote: { id: -1, nome: '', descricao: '' },
+        createLote: { id: -1, nome: '', descricao: '' },
         table: {
           fields: [
               'index',
-              { key: 'name', label: 'Nome', sortable: true },
-              { key: 'email', label: 'E-mail', sortable: false },
-              { key: 'address', label: 'Endereço', sortable: false },
-              { key: 'gender', label: 'Sexo', sortable: false },
-              { key: 'active', label: 'Ativo', sortable: false },
+              { key: 'nome', label: 'Nome', sortable: true },
+              { key: 'descricao', label: 'Descrição', sortable: false },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
           items: [
-              { isActive: true, name: "Jorge", email: 'jorge.mc@gmail.com', address: 'Rua BH', gender: 'M', actived: true },
-              { isActive: false, name: "Andressa", email: 'andressa.mc@gmail.com', address: 'Rua SP', gender: 'F', actived: true },
-              { isActive: false, name: "Augusto", email: 'guto.feliz@gmail.com', address: 'Rua RJ', gender: 'M', actived: false },
+              { nome: "Lote 1", descricao: "Lote grande" },
             ]
         }
       }
@@ -96,8 +91,8 @@
       toggleModal(){
         this.showModal = !this.showModal;
       },
-      onPersonSelection(index, person, mode){
-        this.selectedPerson = {...person};
+      onLoteSelection(index, lote, mode){
+        this.selectedLote = {...lote};
         this.toggleModal();
         this.setMode(mode);
       },
@@ -109,26 +104,17 @@
           return;
         }
         alert("Enviado com sucesso");
-        const items = this.table.items;
-        if(this.mode == 'create'){
-          this.table.items = [...items, response];
-        } 
-        else if(this.mode == 'update'){
-          this.table.items = items.map( item => (item.id == response.id) ? response : item)
-        }
-        else if(this.mode == 'delete'){
-           this.table.items = items.filter(item => item.id !== response.id);
-        }
+        const items = await handleLote.index();
+        if(items instanceof Error) return;
+        this.table.items = items;
       },
       onReset(form){
         if(this.mode == 'delete'){
           this.toggleModal();
           return;
         }
-        form.email = ''
-        form.name = ''
-        form.address = ''
-        form.gender = ''
+        form.nome = ''
+        form.descricao = ''
       }
     },
     computed: {
@@ -136,14 +122,14 @@
         return form_types[this.mode].title;
       },
       submitFunction(){
-        return handlePerson[this.mode];
+        return handleLote[this.mode];
       },
       controlButtons(){
         return form_types[this.mode].buttons
       }
     },
     async beforeMount() {
-      const items = await handlePerson.index();  
+      const items = await handleLote.index();
       if(items instanceof Error) return;
       this.table.items = items;
     },
@@ -151,6 +137,12 @@
 </script>
 
 <style scoped>
+  #content{
+    min-width: 50%;
+  }
+  #table-header {
+    margin: 2rem 0 0.5rem 0;
+  }
   h3 {
     margin: 2rem 0 0.5rem 0;
   }

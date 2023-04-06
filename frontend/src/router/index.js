@@ -2,8 +2,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 const PeopleContent = () => import("../components/People/PeopleContent");
 const AnimalContent = () => import("../components/Animal/AnimalContent");
-const LoteContent = () => import("../components/People/PeopleContent");
-const AnimaisLotesContent = () => import("../components/People/PeopleContent");
+const LoteContent = () => import("../components/Lote/LoteContent");
+const AnimaisLotesContent = () => import("../components/AnimaisLotes/AnimaisLotesContent");
 
 const routes = [
   { path: '/animal', name: "animal", component: AnimalContent },

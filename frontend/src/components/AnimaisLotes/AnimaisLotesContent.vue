@@ -1,15 +1,15 @@
 <template>
 
-  <div class="content">
+  <div id="content">
     <div>
-      <b-row cols="3" align-h="end">
+      <b-row id="table-header" cols="3" align-h="end">
         <b-col>
-          <h3>Registros</h3>
+          <h4>Registros - Relações</h4>
         </b-col>
         <b-col align-self="end">
           <b-button
           aria-controls="collapse-4"
-          @click="[toggleModal(), setMode('create')]" variant="primary">Adicionar Pessoa</b-button>
+          @click="[toggleModal(), setMode('create')]" variant="primary">Adicionar relação</b-button>
         </b-col>
       </b-row>
 
@@ -19,19 +19,18 @@
 
   <b-modal v-model="showModal" :title="form_title" hide-footer>
     <div class="d-block text-left">
-      <PeopleForm @submit="onSubmit" @reset="onReset" :person="selectedPerson" :disabled="mode == 'delete'">
-
+      <AnimaisLotesForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createPerson : selectedPerson" :disabled="mode == 'delete'">
       <b-form-group id="control-form">
         <b-button type="reset" :variant="controlButtons.reset.variant"> {{controlButtons.reset.text}}</b-button>
         <b-button type="submit" :variant="controlButtons.submit.variant"> {{controlButtons.submit.text}}</b-button>
       </b-form-group>
-    </PeopleForm>
+    </AnimaisLotesForm>
     </div>
   </b-modal>
 </template>
 
 <script>
-  import PeopleForm from './PeopleForm.vue'
+  import AnimaisLotesForm from './AnimaisLotesForm.vue'
   import TableComponent from '../TableComponent.vue'
   import handlePerson from '../../api/person';
 
@@ -61,16 +60,17 @@
 
 
   export default {
-    name: 'PeopleContent',
+    name: 'AnimaisLotesContent',
     components: {
-      PeopleForm,
+      AnimaisLotesForm,
       TableComponent
     },
     data: () => {
       return {
         showModal: false,
         mode: 'create',
-        selectedPerson: { id: -1, email: '', name: '', address: '', gender: '', active: '' },
+        selectedPerson: { id: -1, email: '', name: '', address: '', gender: '', active: 'false' },
+        createPerson: { id: -1, email: '', name: '', address: '', gender: '', active: 'false' },
         table: {
           fields: [
               'index',
@@ -109,16 +109,10 @@
           return;
         }
         alert("Enviado com sucesso");
-        const items = this.table.items;
-        if(this.mode == 'create'){
-          this.table.items = [...items, response];
-        } 
-        else if(this.mode == 'update'){
-          this.table.items = items.map( item => (item.id == response.id) ? response : item)
-        }
-        else if(this.mode == 'delete'){
-           this.table.items = items.filter(item => item.id !== response.id);
-        }
+
+        const items = await handlePerson.index();  
+        if(items instanceof Error) return;
+        this.table.items = items;
       },
       onReset(form){
         if(this.mode == 'delete'){
@@ -129,6 +123,7 @@
         form.name = ''
         form.address = ''
         form.gender = ''
+        form.active = 'false'
       }
     },
     computed: {
@@ -151,7 +146,10 @@
 </script>
 
 <style scoped>
-  h3 {
+  #content{
+    min-width: 50%;
+  }
+  #table-header {
     margin: 2rem 0 0.5rem 0;
   }
   #content > button{
