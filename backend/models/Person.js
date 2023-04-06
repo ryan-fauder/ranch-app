@@ -14,10 +14,7 @@ class Person extends Model {
 
   }
   static associate(models) {
-    this.hasMany(models.Animal, {
-      foreignKey: "fk_id_pessoa",
-      as: "animais"
-    });
+
   }
 }
 

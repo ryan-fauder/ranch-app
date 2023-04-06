@@ -15,6 +15,10 @@ class Lote extends Model {
       through: "AnimaisLotes",
       as: "animais",
     });
+    this.hasMany(models.AnimaisLotes, {
+      foreignKey: "fk_id_lote",
+      as: "relacoes"
+    });
   }
 }
 

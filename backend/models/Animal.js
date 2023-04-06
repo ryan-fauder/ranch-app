@@ -8,7 +8,7 @@ class Animal extends Model {
         nome: DataTypes.STRING,
         raca: DataTypes.STRING,
         sexo: DataTypes.CHAR,
-        dt_nascimento: DataTypes.DATE
+        dt_nascimento: DataTypes.DATEONLY
       }, {sequelize, modelName: 'Animal', tableName: "animal"}
     )
   }
@@ -22,6 +22,13 @@ class Animal extends Model {
       through: "AnimaisLotes",
       as: "lotes",
     });
+    this.hasMany(models.AnimaisLotes, {
+      foreignKey: "fk_id_animal",
+      as: "relacoes"
+    });
+  }
+  getDataNascimento(){
+    return []
   }
 }
 

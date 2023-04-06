@@ -12,6 +12,14 @@ class AnimaisLotes extends Model {
     )
   }
   static associate(models) {
+    this.belongsTo(models.Animal, {
+      foreignKey: "fk_id_animal",
+      as: "animal"
+    });
+    this.belongsTo(models.Lote, {
+      foreignKey: "fk_id_lote",
+      as: "lote"
+    });
   }
 }
 
