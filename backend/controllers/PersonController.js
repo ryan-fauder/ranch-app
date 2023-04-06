@@ -3,7 +3,7 @@ const { UniqueConstraintError, EmptyResultError, } = require('sequelize');
 module.exports = {
 	async index(req, res){
 		try{
- 			const person = await Person.findAll();
+ 			const person = await Person.findAll({attributes: {exclude: ['createdAt', 'updatedAt']}});
  			return res.send(person)
 		} 
 		catch(err){
@@ -12,11 +12,12 @@ module.exports = {
  	},
 	async store(req, res){
 		try{
-			const personNew = req.body;
- 			const person = await Person.create(personNew)
+			const { name, email, address, gender, active } = req.body;
+ 			const person = await Person.create({ name, email, address, gender, active })
  			return res.status(201).send(person);
  		}
 		catch(err){
+			console.log(err)
 			if(err instanceof UniqueConstraintError){
 				return res.status(409).send({error: "Error on creating person: E-mail already in use"});
 			}
@@ -39,12 +40,12 @@ module.exports = {
  	},
  	async update(req, res){
  		try{
- 			const personNew = req.body;
+ 			const {name, email, gender, address, active} = req.body;
 	 		const personId = req.params.id;
 
 	 		const person = await Person.findByPk(personId);
 	 		if(person == null) throw new EmptyResultError();
-	 		const personUpdated = await person.update(personNew);
+	 		const personUpdated = await person.update({name, email, gender, address, active});
 	 		return res.send(personUpdated);
  		}
  		catch(err){

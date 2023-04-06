@@ -4,7 +4,7 @@ const { UniqueConstraintError, EmptyResultError, ForeignKeyConstraintError} = re
 module.exports = {
 	async index(req, res){
 		try{
- 			const lote = await Lote.findAll();
+ 			const lote = await Lote.findAll({attributes: {exclude: ['createdAt', 'updatedAt']}});
  			return res.send(lote)
 		} 
 		catch(err){
@@ -13,8 +13,8 @@ module.exports = {
  	},
 	async store(req, res){
 		try{
-			const loteNew = req.body;
- 			const lote = await Lote.create(loteNew);
+			const {nome, descricao} = req.body;
+ 			const lote = await Lote.create({nome, descricao});
  			return res.status(201).send(lote);
  		}
 		catch(err){
@@ -42,7 +42,7 @@ module.exports = {
 
 	 		const lote = await Lote.findByPk(loteId);
 	 		if(lote == null) throw new EmptyResultError();
-	 		const loteUpdated = await Lote.update(loteNew);
+	 		const loteUpdated = await lote.update(loteNew);
 	 		return res.send(loteUpdated);
  		}
  		catch(err){
@@ -57,7 +57,7 @@ module.exports = {
 	 		const loteId = req.params.id;
 	 		const lote = await Lote.findByPk(loteId);
 	 		if(lote == null) throw new EmptyResultError();
-	 		const loteDeleted = await Lote.destroy();
+	 		const loteDeleted = await lote.destroy();
 	 		return res.send(loteDeleted);
  		}
  		catch(err){

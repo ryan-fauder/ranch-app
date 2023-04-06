@@ -5,27 +5,34 @@ const { EmptyResultError, ForeignKeyConstraintError} = require('sequelize');
 module.exports = {
 	async index(req, res){
 		try{
- 			const animais_lotes = await AnimaisLotes.findAll();
+ 			const animais_lotes = await AnimaisLotes.findAll({
+ 				include: [
+ 					{association: "animal", attributes: ["id","nome"]}, 
+ 					{association: "lote", attributes: ["id","nome"]}
+ 				]
+ 			});
  			return res.send(animais_lotes)
 		} 
 		catch(err){
+			console.log(err);
 			return res.status(400).send({error: "Error on indexing animais_lotes"})
 		}
  	},
 	async store(req, res){
 		try{
-			const animais_lotesNew = req.body;
-			const {	fk_id_animal, fk_id_lote } = animais_lotesNew; 
+			const {	fk_id_animal, fk_id_lote, dt_entrada, dt_saida, dt_ultima_movimentacao, ic_bezerro } = req.body;
+			
 			const animal = await Animal.findByPk(fk_id_animal);
 			if(animal == null) throw new ForeignKeyConstraintError({fields: ["fk_id_animal"]});
 
 			const lote = await Lote.findByPk(fk_id_lote);
 			if(lote == null) throw new ForeignKeyConstraintError({fields: ["fk_id_lote"]});
  			
- 			const animais_lotes = await AnimaisLotes.create(req.body)
+ 			const animais_lotes = await AnimaisLotes.create({	fk_id_animal, fk_id_lote, dt_entrada, dt_saida, dt_ultima_movimentacao, ic_bezerro })
  			return res.status(201).send(animais_lotes);
  		}
 		catch(err){
+			console.log(err);
 			if (err instanceof ForeignKeyConstraintError){
 				if(err.fields[0] == "fk_id_lote")
 					return res.status(404).send({error: "Error on indexing animais_lotes: Foreign Key ID lote not found"})
