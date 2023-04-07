@@ -3,27 +3,29 @@
     <b-form id="relacoes-form" @submit="onSubmit" @reset="onReset">
       <b-form-group id="input-group-0" label="Animal:" label-for="input-0">
         <b-form-select 
-          v-model="form.fk_id_animal" :disabled="disabled"
+          v-model="form.fk_id_animal" :disabled="disabled || disable_animaislotes"
           id="input-4" 
         >
           <option :value="null" disabled>Selecione um animal</option>
-          <label>ID - Nome</label>
+          <b-form-select-option-group label="ID - Nome do Animal">
           <option v-for="option in options_animais" :value="option.id" :key="option.id">
              {{ option.id }} - {{ option.nome  }}
           </option>
+          </b-form-select-option-group>
         </b-form-select>
       </b-form-group>
 
       <b-form-group id="input-group-1" label="Lote:" label-for="input-1">
         <b-form-select 
-          v-model="form.fk_id_lote" :disabled="disabled"
+          v-model="form.fk_id_lote" :disabled="disabled || disable_animaislotes"
           id="input-4" 
         >
           <option :value="null" disabled>Selecione um lote</option>
-          <label>ID - Nome</label>
-          <option v-for="option in options_lotes" :value="option.id" :key="option.id">
-             {{ option.id }} - {{ option.nome  }}
-          </option>
+          <b-form-select-option-group label="ID - Nome do Lote">
+            <option v-for="option in options_lotes" :value="option.id" :key="option.id">
+               {{ option.id }} - {{ option.nome  }}
+            </option>
+          </b-form-select-option-group>
         </b-form-select>
       </b-form-group>
 
@@ -66,7 +68,8 @@
     },
     props: {
       data: { type: Object },
-      disabled:{ type: Boolean },
+      disabled: { type: Boolean },
+      disable_animaislotes: { type: Boolean }
     },
     watch: { 
       data: {

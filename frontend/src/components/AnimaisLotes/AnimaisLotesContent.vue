@@ -19,7 +19,7 @@
 
   <b-modal v-model="showModal" :title="form_title" hide-footer>
     <div class="d-block text-left">
-      <AnimaisLotesForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createRelacao : selectedRelacao" :disabled="mode == 'delete'">
+      <AnimaisLotesForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createRelacao : selectedRelacao" :disabled="mode == 'delete'" :disable_animaislotes="mode == 'update'">
       <b-form-group id="control-form">
         <b-button type="reset" :variant="controlButtons.reset.variant"> {{controlButtons.reset.text}}</b-button>
         <b-button type="submit" :variant="controlButtons.submit.variant"> {{controlButtons.submit.text}}</b-button>

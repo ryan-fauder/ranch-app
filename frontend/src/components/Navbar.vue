@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-navbar fill toggleable="lg" type="dark" class="navbar" >
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar fill type="dark" class="navbar" >
+      <b-navbar-brand href="#"><img src="../assets/logo.png" alt="logo" id="logo-img"></b-navbar-brand>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
@@ -27,5 +27,8 @@ export default {
   background-color: #8ca615;
 }
 
-
+#logo-img {
+  width: 2.4rem;
+  height: 2.4rem;
+}
 </style>

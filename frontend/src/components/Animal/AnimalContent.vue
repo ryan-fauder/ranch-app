@@ -79,7 +79,7 @@
               { key: 'raca', label: 'Raça', sortable: false },
               { key: 'sexo', label: 'Sexo', sortable: false },
               { key: 'dt_nascimento', label: 'Data de Nascimento', sortable: false, formatter: (value) => moment(value).format("DD/MM/YYYY") },
-              { key: 'pessoa', label: 'Proprietário', sortable: false, formatter: (value) => value?.name  },
+              { key: 'pessoa', label: 'Proprietário', sortable: false, formatter: (value) => value?.nome  },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
           items: []
@@ -100,7 +100,6 @@
       },
       async onSubmit(form){
         const response = await this.submitFunction(form);
-        console.log(response);
 
         if(response instanceof Error || response.error){
           alert("Não foi possível realizar essa operação");

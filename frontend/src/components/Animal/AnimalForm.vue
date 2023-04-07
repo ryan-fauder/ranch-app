@@ -45,10 +45,11 @@
           id="input-4" 
         >
           <option :value="null" disabled>Selecione um proprietário</option>
-          <label>ID - Nome</label>
-          <option v-for="option in options" :value="option.id" :key="option.id">
-             {{ option.id }} - {{ option.name  }}
-          </option>
+          <b-form-select-option-group label="ID - Nome da pessoa">
+            <option v-for="option in options" :value="option.id" :key="option.id">
+               {{ option.id }} - {{ option.nome  }}
+            </option>
+          </b-form-select-option-group>
         </b-form-select>
       </b-form-group>
 
@@ -66,7 +67,7 @@
 </template>
 <script>
 
-  import handlePerson from '../../api/person';
+  import handlePessoa from '../../api/pessoa';
   export default {
     data() {
       return {
@@ -99,7 +100,7 @@
       }
     },
     async beforeMount(){
-      const items = await handlePerson.index();
+      const items = await handlePessoa.index();
       if(items instanceof Error) return;
       this.options = items;
     }

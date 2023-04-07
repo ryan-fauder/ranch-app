@@ -13,26 +13,26 @@
         </b-col>
       </b-row>
 
-      <TableComponent @rowSelection="onPersonSelection" :fields="table.fields" :items="table.items" />
+      <TableComponent @rowSelection="onPessoaSelection" :fields="table.fields" :items="table.items" />
     </div>
   </div>
 
   <b-modal v-model="showModal" :title="form_title" hide-footer>
     <div class="d-block text-left">
-      <PeopleForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createPerson : selectedPerson" :disabled="mode == 'delete'">
+      <PessoaForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createPessoa : selectedPessoa" :disabled="mode == 'delete'">
       <b-form-group id="control-form">
         <b-button type="reset" :variant="controlButtons.reset.variant"> {{controlButtons.reset.text}}</b-button>
         <b-button type="submit" :variant="controlButtons.submit.variant"> {{controlButtons.submit.text}}</b-button>
       </b-form-group>
-    </PeopleForm>
+    </PessoaForm>
     </div>
   </b-modal>
 </template>
 
 <script>
-  import PeopleForm from './PeopleForm.vue'
+  import PessoaForm from './PessoaForm.vue'
   import TableComponent from '../TableComponent.vue'
-  import handlePerson from '../../api/person';
+  import handlePessoa from '../../api/pessoa';
 
   const form_types = {
     create: {
@@ -62,30 +62,26 @@
   export default {
     name: 'PeopleContent',
     components: {
-      PeopleForm,
+      PessoaForm,
       TableComponent
     },
     data: () => {
       return {
         showModal: false,
         mode: 'create',
-        selectedPerson: { id: -1, email: '', name: '', address: '', gender: '', active: 'false' },
-        createPerson: { id: -1, email: '', name: '', address: '', gender: '', active: 'false' },
+        selectedPessoa: { id: -1, email: '', nome: '', endereco: '', sexo: '', ativo: 'false' },
+        createPessoa: { id: -1, email: '', nome: '', endereco: '', sexo: '', ativo: 'false' },
         table: {
           fields: [
               'index',
-              { key: 'name', label: 'Nome', sortable: true },
+              { key: 'nome', label: 'Nome', sortable: true },
               { key: 'email', label: 'E-mail', sortable: false },
-              { key: 'address', label: 'Endereço', sortable: false },
-              { key: 'gender', label: 'Sexo', sortable: false },
-              { key: 'active', label: 'Ativo', sortable: false },
+              { key: 'endereco', label: 'Endereço', sortable: false },
+              { key: 'sexo', label: 'Sexo', sortable: false },
+              { key: 'ativo', label: 'Ativo', sortable: false },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
-          items: [
-              { isActive: true, name: "Jorge", email: 'jorge.mc@gmail.com', address: 'Rua BH', gender: 'M', actived: true },
-              { isActive: false, name: "Andressa", email: 'andressa.mc@gmail.com', address: 'Rua SP', gender: 'F', actived: true },
-              { isActive: false, name: "Augusto", email: 'guto.feliz@gmail.com', address: 'Rua RJ', gender: 'M', actived: false },
-            ]
+          items: []
         }
       }
     },
@@ -96,8 +92,8 @@
       toggleModal(){
         this.showModal = !this.showModal;
       },
-      onPersonSelection(index, person, mode){
-        this.selectedPerson = {...person};
+      onPessoaSelection(index, pessoa, mode){
+        this.selectedPessoa = {...pessoa};
         this.toggleModal();
         this.setMode(mode);
       },
@@ -110,7 +106,7 @@
         }
         alert("Enviado com sucesso");
 
-        const items = await handlePerson.index();  
+        const items = await handlePessoa.index();  
         if(items instanceof Error) return;
         this.table.items = items;
       },
@@ -120,10 +116,10 @@
           return;
         }
         form.email = ''
-        form.name = ''
-        form.address = ''
-        form.gender = ''
-        form.active = 'false'
+        form.nome = ''
+        form.endereco = ''
+        form.sexo = ''
+        form.ativo = 'false'
       }
     },
     computed: {
@@ -131,14 +127,14 @@
         return form_types[this.mode].title;
       },
       submitFunction(){
-        return handlePerson[this.mode];
+        return handlePessoa[this.mode];
       },
       controlButtons(){
         return form_types[this.mode].buttons
       }
     },
     async beforeMount() {
-      const items = await handlePerson.index();  
+      const items = await handlePessoa.index();  
       if(items instanceof Error) return;
       this.table.items = items;
     },

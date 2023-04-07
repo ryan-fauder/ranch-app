@@ -1,28 +1,28 @@
 import { BASE_URL } from "./config.js";
 
-const handlePerson = {
-    create: async(person) => {
-        return await fetch(`${BASE_URL}/person/create`, {
+const handlePessoa = {
+    create: async(pessoa) => {
+        return await fetch(`${BASE_URL}/pessoa/create`, {
             method: "POST",
             headers: {"Content-type": "application/json; charset=UTF-8"},
-            body: JSON.stringify(person),
+            body: JSON.stringify(pessoa),
           })
           .then(response => response.json())
           .catch(err => err);
     },
-    update: async(person) => {
-        const { id } = person;
-        return await fetch(`${BASE_URL}/person/${id}`, {
+    update: async(pessoa) => {
+        const { id } = pessoa;
+        return await fetch(`${BASE_URL}/pessoa/${id}`, {
             method: "PUT",
             headers: {"Content-type": "application/json; charset=UTF-8"},
-            body: JSON.stringify(person),
+            body: JSON.stringify(pessoa),
           })
           .then(response => response.json())
           .catch(err => err);
     },
-    delete: async(person) => {
-        const { id } = person;
-        return await fetch(`${BASE_URL}/person/${id}`, {
+    delete: async(pessoa) => {
+        const { id } = pessoa;
+        return await fetch(`${BASE_URL}/pessoa/${id}`, {
             method: "DELETE",
             headers: {"Content-type": "application/json; charset=UTF-8"}
           })
@@ -30,7 +30,7 @@ const handlePerson = {
           .catch(err => err);
     },
     index: async() => {
-        return await fetch(`${BASE_URL}/person/`, {
+        return await fetch(`${BASE_URL}/pessoa/`, {
             method: "GET",
             headers: {"Content-type": "application/json; charset=UTF-8"}
           })
@@ -39,4 +39,4 @@ const handlePerson = {
     }
 }
 
-export default handlePerson;
+export default handlePessoa;
