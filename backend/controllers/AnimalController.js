@@ -56,7 +56,6 @@ module.exports = {
 	 		return res.send(animalUpdated);
  		}
  		catch(err){
- 			console.log(err);
  			if (err instanceof ForeignKeyConstraintError){
  				return res.status(404).send({error: "Error on updating animal: Foreign Key ID pessoa not found"})
  			}

@@ -13,13 +13,13 @@
         </b-col>
       </b-row>
 
-      <TableComponent @rowSelection="onPersonSelection" :fields="table.fields" :items="table.items" />
+      <TableComponent @rowSelection="onRelacaoSelection" :fields="table.fields" :items="table.items" />
     </div>
   </div>
 
   <b-modal v-model="showModal" :title="form_title" hide-footer>
     <div class="d-block text-left">
-      <AnimaisLotesForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createPerson : selectedPerson" :disabled="mode == 'delete'">
+      <AnimaisLotesForm @submit="onSubmit" @reset="onReset" :data="mode == 'create' ? createRelacao : selectedRelacao" :disabled="mode == 'delete'">
       <b-form-group id="control-form">
         <b-button type="reset" :variant="controlButtons.reset.variant"> {{controlButtons.reset.text}}</b-button>
         <b-button type="submit" :variant="controlButtons.submit.variant"> {{controlButtons.submit.text}}</b-button>
@@ -33,6 +33,7 @@
   import AnimaisLotesForm from './AnimaisLotesForm.vue'
   import TableComponent from '../TableComponent.vue'
   import handleAnimaisLotes from '../../api/animaislotes';
+  import moment from 'moment';
 
   const form_types = {
     create: {
@@ -60,7 +61,7 @@
 
 
   export default {
-    name: 'PeopleContent',
+    name: 'AnimaisLotesContent',
     components: {
       AnimaisLotesForm,
       TableComponent
@@ -69,8 +70,8 @@
       return {
         showModal: false,
         mode: 'create',
-        selectedPerson: { id: -1, email: '', name: '', address: '', gender: '', active: 'false' },
-        createPerson: { id: -1, email: '', name: '', address: '', gender: '', active: 'false' },
+        selectedRelacao: { id: "", fk_id_animal: null, fk_id_lote: null, dt_entrada: "", dt_saida: "", dt_ultima_movimentacao: "", ic_bezerro: false },
+        createRelacao: { id: "", fk_id_animal: null, fk_id_lote: null, dt_entrada: "", dt_saida: "", dt_ultima_movimentacao: "", ic_bezerro: false },
         table: {
           fields: [
               'index',
@@ -78,14 +79,14 @@
               { key: 'animal', label: 'Nome (Animal)', sortable: false, formatter: (value) => value?.nome },
               { key: 'fk_id_lote', label: 'ID lote', sortable: false },
               { key: "lote", label: 'Nome (Lote)', sortable: false, formatter: (value) => value?.nome },
-              { key: 'dt_entrada', label: 'Data de Entrada', sortable: false },
-              { key: 'dt_saida', label: 'Data de Saída', sortable: false },
-              { key: 'dt_ultima_movimentacao', label: 'Data de Ultima Movimentação', sortable: false },
+              { key: 'dt_entrada', label: 'Data de Entrada', sortable: false, formatter: (value) => moment(value).format("DD/MM/YYYY") },
+              { key: 'dt_saida', label: 'Data de Saída', sortable: false, formatter: (value) => moment(value).format("DD/MM/YYYY") },
+              { key: 'dt_ultima_movimentacao', label: 'Data de Última Movimentação', sortable: false, formatter: (value) => moment(value).format("DD/MM/YYYY") },
               { key: 'ic_bezerro', label: 'IC Bezerro', sortable: false },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
           items: [
-              { id: -1 , fk_id_animal: -1, fk_id_lote: -1, dt_entrada: "06/04/2022", dt_saida: "10/04/2023", dt_ultima_movimentacao: "10/04/2023", ic_bezerro: "true" },
+              { id: "", fk_id_animal: null, fk_id_lote: null, dt_entrada: "", dt_saida: "", dt_ultima_movimentacao: "", ic_bezerro: false },
             ]
         }
       }
@@ -97,8 +98,8 @@
       toggleModal(){
         this.showModal = !this.showModal;
       },
-      onPersonSelection(index, person, mode){
-        this.selectedPerson = {...person};
+      onRelacaoSelection(index, relacao, mode){
+        this.selectedRelacao = {...relacao};
         this.toggleModal();
         this.setMode(mode);
       },
@@ -120,11 +121,12 @@
           this.toggleModal();
           return;
         }
-        form.email = ''
-        form.name = ''
-        form.address = ''
-        form.gender = ''
-        form.active = 'false'
+        form.fk_id_animal = null
+        form.fk_id_lote = null
+        form.dt_entrada = ""
+        form.dt_saida = ""
+        form.dt_ultima_movimentacao = ""
+        form.ic_bezerro = false
       }
     },
     computed: {

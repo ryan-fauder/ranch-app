@@ -2,20 +2,21 @@ import { BASE_URL } from "./config.js";
 
 const handleAnimaisLotes = {
     create: async(animaisLotes) => {
+        const { id, lote, animal, ...data} = animaisLotes;
         return await fetch(`${BASE_URL}/animaisLotes/create`, {
             method: "POST",
             headers: {"Content-type": "application/json; charset=UTF-8"},
-            body: JSON.stringify(animaisLotes),
+            body: JSON.stringify(data),
           })
           .then(response => response.json())
           .catch(err => err);
     },
     update: async(animaisLotes) => {
-        const { id } = animaisLotes;
+        const { id, lote, animal, ...data} = animaisLotes;
         return await fetch(`${BASE_URL}/animaisLotes/${id}`, {
             method: "PUT",
             headers: {"Content-type": "application/json; charset=UTF-8"},
-            body: JSON.stringify(animaisLotes),
+            body: JSON.stringify(data),
           })
           .then(response => response.json())
           .catch(err => err);

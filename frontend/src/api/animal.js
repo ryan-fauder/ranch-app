@@ -13,7 +13,6 @@ const handleAnimal = {
     },
     update: async(animal) => {
         const { id, pessoa, ...data } = animal;
-        console.log(data, pessoa);
         return await fetch(`${BASE_URL}/animal/${id}`, {
             method: "PUT",
             headers: {"Content-type": "application/json; charset=UTF-8"},

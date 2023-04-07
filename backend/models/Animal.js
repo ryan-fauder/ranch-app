@@ -17,14 +17,14 @@ class Animal extends Model {
       foreignKey: "fk_id_pessoa",
       as: "pessoa"
     });
+    this.hasMany(models.AnimaisLotes, {
+      foreignKey: "fk_id_animal",
+      as: "relacoes"
+    });
     this.belongsToMany(models.Lote, {
       foreignKey: "fk_id_lote",
       through: "AnimaisLotes",
       as: "lotes",
-    });
-    this.hasMany(models.AnimaisLotes, {
-      foreignKey: "fk_id_animal",
-      as: "relacoes"
     });
   }
   getDataNascimento(){

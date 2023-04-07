@@ -140,7 +140,6 @@
     async beforeMount() {
       const items = await handlePerson.index();  
       if(items instanceof Error) return;
-      console.log(items);
       this.table.items = items;
     },
   }

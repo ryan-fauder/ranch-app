@@ -59,7 +59,7 @@ module.exports = {
  		try{
  			const animais_lotesNew = req.body;
 	 		const animais_lotesId = req.params.id;
-	 		const {fk_id_animal, fk_id_lote} = animais_lotesNew;
+	 		const {fk_id_animal, fk_id_lote, ...data} = animais_lotesNew;
 
 	 		const animais_lotes = await AnimaisLotes.findOne({ where: { id: animais_lotesId }});
 	 		if(animais_lotes == null) throw new EmptyResultError();
@@ -69,7 +69,6 @@ module.exports = {
 
 			const lote = await Lote.findByPk(fk_id_lote);
 			if(lote == null) throw new ForeignKeyConstraintError({fields: ["fk_id_lote"]});
-
 	 		const animais_lotesUpdated = await animais_lotes.update(animais_lotesNew);
 	 		return res.send(animais_lotesUpdated);
  		}

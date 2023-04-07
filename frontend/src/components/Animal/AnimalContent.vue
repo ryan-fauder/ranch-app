@@ -33,6 +33,7 @@
   import AnimalForm from './AnimalForm.vue'
   import TableComponent from '../TableComponent.vue'
   import handleAnimal from '../../api/animal';
+  import moment from "moment";
 
   const form_types = {
     create: {
@@ -58,7 +59,6 @@
     }
   };
 
-
   export default {
     name: 'AnimalContent',
     components: {
@@ -70,7 +70,7 @@
         showModal: false,
         mode: 'create',
         selectedAnimal: { id_fazenda: "", nome: "", raca: "", sexo: "", dt_nascimento: "" },
-        createAnimal: { id_fazenda: "", nome: "", raca: "", sexo: "", dt_nascimento: ""  },
+        createAnimal: { id_fazenda: "", nome: "", raca: "", sexo: "", dt_nascimento: "", fk_id_pessoa: null },
         table: {
           fields: [
               'index',
@@ -78,7 +78,7 @@
               { key: 'nome', label: 'Nome', sortable: false },
               { key: 'raca', label: 'Raça', sortable: false },
               { key: 'sexo', label: 'Sexo', sortable: false },
-              { key: 'dt_nascimento', label: 'Data de Nascimento', sortable: false },
+              { key: 'dt_nascimento', label: 'Data de Nascimento', sortable: false, formatter: (value) => moment(value).format("DD/MM/YYYY") },
               { key: 'pessoa', label: 'Proprietário', sortable: false, formatter: (value) => value?.name  },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
@@ -124,6 +124,7 @@
         form.raca = ''
         form.sexo = ''
         form.dt_nascimento = ''
+        form.fk_id_pessoa = null
       }
     },
     computed: {

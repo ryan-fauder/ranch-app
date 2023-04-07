@@ -16,6 +16,7 @@
     "bootstrap-vue": "^2.23.1",
     "bootstrap-vue-3": "^0.5.1",
     "core-js": "^3.8.3",
+    "moment": "^2.29.4",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "vue": "^3.2.13",
@@ -47,12 +48,15 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "no-unused-vars": ["error", {
-        "varsIgnorePattern": "^_",
-        "argsIgnorePattern": "^_"
-      }]
+      "no-unused-vars": [
+        "error",
+        {
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_",
+          "ignoreRestSiblings": true
+        }
+      ]
     }
-
   },
   "browserslist": [
     "> 1%",

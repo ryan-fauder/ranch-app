@@ -32,18 +32,27 @@
       </b-form-group>
 
       <b-form-group id="input-group-3" label="Data de Nascimento:" label-for="input-3">
-        <VueDatePicker v-model="form.dt_nascimento" auto-apply :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" format="dd/MM/yyyy"/>
+        <VueDatePicker v-model="form.dt_nascimento" auto-apply 
+        :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" 
+        format="dd/MM/yyyy" timezone="UTC"
+        placeholder="Insira a data de nascimento"
+        />
       </b-form-group>
 
-      <b-form-group id="input-group-5" label="Proprietário">
+      <b-form-group id="input-group-4" label="Proprietário">
         <b-form-select 
-          v-model="form.fk_id_pessoa" :options="options" 
-          value-field="id" text-field="name, id" 
-          id="radio-group"
-        ></b-form-select>
+          v-model="form.fk_id_pessoa" :disabled="disabled"
+          id="input-4" 
+        >
+          <option :value="null" disabled>Selecione um proprietário</option>
+          <label>ID - Nome</label>
+          <option v-for="option in options" :value="option.id" :key="option.id">
+             {{ option.id }} - {{ option.name  }}
+          </option>
+        </b-form-select>
       </b-form-group>
 
-      <b-form-group id="input-group-4" label="Sexo">
+      <b-form-group id="input-group-5" label="Sexo">
         <b-form-radio-group id="radio-group" :disabled="disabled">
           <b-form-radio v-model="form.sexo" value="M">Masculino</b-form-radio>
           <b-form-radio v-model="form.sexo" value="F">Feminino</b-form-radio>
