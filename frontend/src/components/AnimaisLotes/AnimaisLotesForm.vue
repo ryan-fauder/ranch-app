@@ -28,18 +28,17 @@
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Data de Entrada:" label-for="input-2">
-        <VueDatePicker v-model="form.dt_entrada" auto-apply :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" format="dd/MM/yyyy" timezone="UTC"
-        placeholder="Insira a data de entrada"/>
+        <VueDatePicker v-model="form.dt_entrada" auto-apply :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" format="dd/MM/yyyy" timezone="UTC" locale="pt-BR" placeholder="Insira a data de entrada"/>
       </b-form-group>
 
       <b-form-group id="input-group-3" label="Data de Saída:" label-for="input-3">
         <VueDatePicker v-model="form.dt_saida" auto-apply :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" format="dd/MM/yyyy" timezone="UTC"
-        placeholder="Insira a data de saída"/>
+        locale="pt-BR" placeholder="Insira a data de saída"/>
       </b-form-group>
 
       <b-form-group id="input-group-4" label="Data de Última Movimentação:">
         <VueDatePicker v-model="form.dt_ultima_movimentacao" auto-apply :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" format="dd/MM/yyyy" timezone="UTC"
-        placeholder="Insira a data da última movimentação"/>
+        locale="pt-BR" placeholder="Insira a data da última movimentação"/>
       </b-form-group>
 
       <b-form-group id="input-group-5" label="IC Bezerro">

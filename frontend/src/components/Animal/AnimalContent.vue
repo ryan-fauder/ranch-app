@@ -82,9 +82,7 @@
               { key: 'pessoa', label: 'Proprietário', sortable: false, formatter: (value) => value?.name  },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
-          items: [
-              { id_fazenda: 1, nome: "Magnata", raca: "Bezerro", sexo: "M", dt_nascimento: "04/10/2010" }
-            ]
+          items: []
         }
       }
     },

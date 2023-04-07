@@ -34,7 +34,7 @@
       <b-form-group id="input-group-3" label="Data de Nascimento:" label-for="input-3">
         <VueDatePicker v-model="form.dt_nascimento" auto-apply 
         :close-on-auto-apply="false" :enable-time-picker="false" required :disabled="disabled" 
-        format="dd/MM/yyyy" timezone="UTC"
+        format="dd/MM/yyyy" timezone="UTC" locale="pt-BR"
         placeholder="Insira a data de nascimento"
         />
       </b-form-group>
