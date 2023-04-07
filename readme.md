@@ -3,15 +3,58 @@
 <img src="https://img.shields.io/badge/-TOPICS--SEQUELIZE%20----%20BOOTSTRAP%20----%20DATABASE--MANAGEMENT%20----%20API%20REST-blue?style=for-the-badge&logo=acclaim" />
 
 ## Descrição
+Trata-se de um dashboard para o gerenciamento de um sistema de banco de dados.
+
+## Como começar a utilizar
+
+Faça um clone do repositório em sua máquina e entre na pasta do projeto:
+
+```bash
+git clone https://github.com/ryan-fauder/ranch-app.git && cd ./ranch-app
+```
+Agora, instale as dependências do projeto com o uso do `npm` ou do `yarn`, ambas as pastas `frontend` e `backend` possuem dependências.
+
+### Iniciando API (backend)
+
+Primeiro, deve-se realizar as configurações do banco de dados `Mysql` local para iniciar o backend. Para abrir a pasta do arquivo de configuração:
+
+```bash
+  cd ./backend/config
+```
+Agora, basta alterar as informações do arquivo `config.js`. Uma vez que foi configurado, retorne para a pasta `backend` e, na pasta, execute as migrations:
+
+```bash
+  npx sequelize db:migrate
+```
+
+Caso seja necessário, execute as seeds para popular as tabelas criadas pelo comando:
+
+```bash
+  npx sequelize db:seed:all
+```
+
+Agora, para iniciar a API, utilize:
+
+```bash
+  yarn server
+```
+
+Pronto, o backend agora deve estar em execução.
+
+
+### Iniciando o dashboard (frontend)
+
+Com as dependências instaladas, entre na pasta `frontend` e apenas inicie o serviço Vue:
+
+```bash
+  yarn serve
+```
+
+Pronto, o dashboard agora deve estar em execução.
 
 ## Desenvolvedor
 
 <a href="https://github.com/ryan-fauder">Ryan Fernandes Auder Lopes (ryan-fauder)</a>
-
-
-## Cores utilizadas
-
-
 
 ## Logo - Fonte
 
