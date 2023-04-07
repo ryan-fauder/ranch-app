@@ -13,7 +13,7 @@ class Animal extends Model {
     )
   }
   static associate(models) {
-    this.belongsTo(models.Person, {
+    this.belongsTo(models.Pessoa, {
       foreignKey: "fk_id_pessoa",
       as: "pessoa"
     });

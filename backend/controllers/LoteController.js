@@ -1,6 +1,6 @@
 const Lote = require('../models/Lote');
-const Person = require('../models/Person');
 const { UniqueConstraintError, EmptyResultError, ForeignKeyConstraintError} = require('sequelize');
+
 module.exports = {
 	async index(req, res){
 		try{
@@ -13,7 +13,7 @@ module.exports = {
  	},
 	async store(req, res){
 		try{
-			const {nome, descricao} = req.body;
+			const { nome, descricao } = req.body;
  			const lote = await Lote.create({nome, descricao});
  			return res.status(201).send(lote);
  		}

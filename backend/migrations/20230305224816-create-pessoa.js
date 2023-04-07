@@ -2,14 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('people', {
+    await queryInterface.createTable('pessoa', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      nome: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -18,13 +18,18 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
-      gender: {
+      sexo: {
         allowNull: false,
         type: Sequelize.CHAR
       },
-      address: {
+      endereco: {
         allowNull: false,
         type: Sequelize.TEXT
+      },
+      ativo: { 
+          allowNull: false,
+          type: Sequelize.BOOLEAN,
+          defaultValue:false
       },
       created_at: {
         allowNull: false,
@@ -39,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('people');
+    await queryInterface.dropTable('pessoa');
   }
 };

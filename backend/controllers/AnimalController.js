@@ -1,10 +1,10 @@
 const Animal = require('../models/Animal');
-const Person = require('../models/Person');
+const Pessoa = require('../models/Pessoa');
 const { UniqueConstraintError, EmptyResultError, ForeignKeyConstraintError} = require('sequelize');
 module.exports = {
 	async index(req, res){
 		try{
- 			const animal = await Animal.findAll({include: [{association: "pessoa", attributes: ["id","name"]}], attributes: {exclude: ['createdAt', 'updatedAt']}});
+ 			const animal = await Animal.findAll({include: [{association: "pessoa", attributes: ["id","nome"]}], attributes: {exclude: ['createdAt', 'updatedAt']}});
  			return res.send(animal)
 		} 
 		catch(err){
@@ -15,12 +15,13 @@ module.exports = {
 		try{
 			const fk_id_pessoa = req.params.id_pessoa;
 			const {	id_fazenda, nome, raca, sexo, dt_nascimento } = req.body;
-			const person = await Person.findByPk(fk_id_pessoa);
-			if(person == null) throw new ForeignKeyConstraintError();
+			const pessoa = await Pessoa.findByPk(fk_id_pessoa);
+			if(pessoa == null) throw new ForeignKeyConstraintError();
  			const animal = await Animal.create({ fk_id_pessoa, id_fazenda, nome, raca, sexo, dt_nascimento })
  			return res.status(201).send(animal);
  		}
 		catch(err){
+			console.log(err);
 			if (err instanceof ForeignKeyConstraintError){
 				return res.status(404).send({error: "Error on indexing animal: Foreign Key ID pessoa not found"})
 			}
@@ -50,8 +51,8 @@ module.exports = {
 
 	 		const { fk_id_pessoa } = animalNew;
 	 		 
-	 		const person = await Person.findByPk(fk_id_pessoa);
-	 		if(person == null) throw new ForeignKeyConstraintError();
+	 		const pessoa = await Pessoa.findByPk(fk_id_pessoa);
+	 		if(pessoa == null) throw new ForeignKeyConstraintError();
 	 		const animalUpdated = await animal.update(animalNew);
 	 		return res.send(animalUpdated);
  		}

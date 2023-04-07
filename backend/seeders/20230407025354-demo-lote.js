@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('animais_lotes', [
+    await queryInterface.bulkInsert('lote', [
       {
         "nome": "Lote do Rio Azul",
         "descricao": "Um límpido rio, 30mx30m"
@@ -24,6 +24,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('animais_lotes', null, {});
+    await queryInterface.bulkDelete('lote', null, {});
   }
 };

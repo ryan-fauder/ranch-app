@@ -2,6 +2,7 @@ const AnimaisLotes = require('../models/AnimaisLotes');
 const Animal = require('../models/Animal');
 const Lote = require('../models/Lote');
 const { EmptyResultError, ForeignKeyConstraintError} = require('sequelize');
+
 module.exports = {
 	async index(req, res){
 		try{
