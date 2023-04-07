@@ -1,5 +1,5 @@
 # Ranch - Gerenciamento de Banco
-<img src="https://img.shields.io/badge/Vue-000?style=for-the-badge&logo=vue.js&logoColor=white%22" /> <img src="https://img.shields.io/github/commit-status/ryan-fauder/ranch-app/main/c53fbfdf418d514adddbf65736bc11350b17ddf7?style=for-the-badge"> <img src="https://img.shields.io/github/license/ryan-fauder/ranch-app?color=blue&style=for-the-badge"> <img src="https://img.shields.io/badge/TOPICS-SEQUELIZE%20--%20BOOTSTRAP%20--%20DATABASE-MANAGEMENT%20--%20API REST-blue?style=for-the-badge&logo=acclaim" />
+<img src="https://img.shields.io/badge/Vue-000?style=for-the-badge&logo=vue.js&logoColor=white%22" /> <img src="https://img.shields.io/github/commit-status/ryan-fauder/ranch-app/master/c53fbfdf418d514adddbf65736bc11350b17ddf7?style=for-the-badge"> <img src="https://img.shields.io/badge/-TOPICS--SEQUELIZE%20----%20BOOTSTRAP%20----%20DATABASE--MANAGEMENT%20----%20API%20REST-blue?style=for-the-badge&logo=acclaim" />
 
 ## Descrição
 
