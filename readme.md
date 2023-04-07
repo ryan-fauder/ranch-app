@@ -4,6 +4,11 @@
 
 ## Descrição
 Trata-se de um dashboard para o gerenciamento de um sistema de banco de dados.
+Nas subpastas, possuem imagens da aplicaç
+
+## Desenvolvedor
+
+<a href="https://github.com/ryan-fauder">Ryan Fernandes Auder Lopes (ryan-fauder)</a>
 
 ## Como começar a utilizar
 
@@ -52,10 +57,8 @@ Com as dependências instaladas, entre na pasta `frontend` e apenas inicie o ser
 
 Pronto, o dashboard agora deve estar em execução.
 
-## Desenvolvedor
-
-<a href="https://github.com/ryan-fauder">Ryan Fernandes Auder Lopes (ryan-fauder)</a>
-
 ## Logo - Fonte
+
+A logo gratuita utilizada: 
 
 <a href="https://www.flaticon.com/free-icons/cowboy-hat" title="cowboy-hat icons">Cowboy-hat icons created by Freepik - Flaticon</a>
