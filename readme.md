@@ -4,7 +4,8 @@
 
 ## Descrição
 Trata-se de um dashboard para o gerenciamento de um sistema de banco de dados.
-Nas subpastas, possuem imagens da aplicaç
+
+Nas subpastas, possuem imagens da aplicação.
 
 ## Desenvolvedor
 
