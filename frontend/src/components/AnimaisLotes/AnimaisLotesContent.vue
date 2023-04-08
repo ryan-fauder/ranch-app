@@ -85,9 +85,7 @@
               { key: 'ic_bezerro', label: 'IC Bezerro', sortable: false },
               { key: 'actions', label: 'Ações', sortable: false },
             ],
-          items: [
-              { id: "", fk_id_animal: null, fk_id_lote: null, dt_entrada: "", dt_saida: "", dt_ultima_movimentacao: "", ic_bezerro: false },
-            ]
+          items: []
         }
       }
     },
@@ -113,7 +111,7 @@
         alert("Enviado com sucesso");
 
         const items = await handleAnimaisLotes.index();  
-        if(items instanceof Error) return;
+        if(items instanceof Error) alert("Não foi possível se conectar ao banco de dados. Tente recarregar a página.");
         this.table.items = items;
       },
       onReset(form){
@@ -142,7 +140,7 @@
     },
     async beforeMount() {
       const items = await handleAnimaisLotes.index();  
-      if(items instanceof Error) return;
+      if(items instanceof Error) alert("Não foi possível se conectar ao banco de dados. Tente recarregar a página.");
       this.table.items = items;
     },
   }

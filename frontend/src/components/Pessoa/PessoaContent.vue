@@ -107,7 +107,7 @@
         alert("Enviado com sucesso");
 
         const items = await handlePessoa.index();  
-        if(items instanceof Error) return;
+        if(items instanceof Error) alert("Não foi possível se conectar ao banco de dados. Tente recarregar a página.");
         this.table.items = items;
       },
       onReset(form){
@@ -135,7 +135,7 @@
     },
     async beforeMount() {
       const items = await handlePessoa.index();  
-      if(items instanceof Error) return;
+      if(items instanceof Error) alert("Não foi possível se conectar ao banco de dados. Tente recarregar a página.");
       this.table.items = items;
     },
   }
