@@ -3,13 +3,23 @@
 <img src="https://img.shields.io/badge/-TOPICS--SEQUELIZE%20----%20BOOTSTRAP%20----%20DATABASE--MANAGEMENT%20----%20API%20REST-blue?style=for-the-badge&logo=acclaim" />
 
 ## Descrição
-Trata-se de um dashboard para o gerenciamento de um sistema de banco de dados.
+O projeto trata-se de um dashboard completo e funcional que permite o gerenciamento de um sistema de banco de dados.
 
-Nas subpastas, possuem imagens da aplicação.
+Nesse projeto, foi possível exercitar os seguintes conceitos: 
+- Desenvolvimento de uma API Restful com o Sequelize ORM e MySQL Database;
+- Utilização de Migrations e Seeders;
+- Desenvolvimento de uma plataforma com o framework Vue.js, com o uso dos componentes Bootstrap.
+- Gestão de estado da aplicação e uso de rotas no Vue.js 
 
 ## Desenvolvedor
 
 <a href="https://github.com/ryan-fauder">Ryan Fernandes Auder Lopes (ryan-fauder)</a>
+
+## Dashboard
+
+<img src="https://i.imgur.com/KWcPZJP.png" />
+
+Para visualizar mais imagens da interface, basta entrar no readme.md da pasta `frontend`.
 
 ## Como começar a utilizar
 
