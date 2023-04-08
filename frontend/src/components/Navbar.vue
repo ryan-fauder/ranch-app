@@ -25,6 +25,7 @@ export default {
 
 .navbar {
   background-color: #8ca615;
+  width: 100%;
 }
 
 #logo-img {

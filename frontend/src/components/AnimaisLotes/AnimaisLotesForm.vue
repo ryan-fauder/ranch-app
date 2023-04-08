@@ -3,7 +3,7 @@
     <b-form id="relacoes-form" @submit="onSubmit" @reset="onReset">
       <b-form-group id="input-group-0" label="Animal:" label-for="input-0">
         <b-form-select 
-          v-model="form.fk_id_animal" :disabled="disabled || disable_animaislotes"
+          v-model="form.fk_id_animal" :disabled="disabled"
           id="input-4" 
         >
           <option :value="null" disabled>Selecione um animal</option>
@@ -17,7 +17,7 @@
 
       <b-form-group id="input-group-1" label="Lote:" label-for="input-1">
         <b-form-select 
-          v-model="form.fk_id_lote" :disabled="disabled || disable_animaislotes"
+          v-model="form.fk_id_lote" :disabled="disabled"
           id="input-4" 
         >
           <option :value="null" disabled>Selecione um lote</option>

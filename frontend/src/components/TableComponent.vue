@@ -3,7 +3,7 @@
     <b-table id="content-table"
       :items="items" :fields="fields"
       :current-page="currentPage" :per-page="perPage"
-      hover bordered medium
+      hover bordered medium responsive="sm"
     >
       <template #cell(index)="data">
         {{ data.index + 1 }}

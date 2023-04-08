@@ -70,7 +70,9 @@ module.exports = {
 
 			const lote = await Lote.findByPk(fk_id_lote);
 			if(lote == null) throw new ForeignKeyConstraintError({fields: ["fk_id_lote"]});
+			
 	 		const animais_lotesUpdated = await animais_lotes.update(animais_lotesNew);
+
 	 		return res.send(animais_lotesUpdated);
  		}
  		catch(err){
